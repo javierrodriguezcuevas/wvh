@@ -73,7 +73,7 @@ vendor/bin/phpmd src/ text phpmd.xml
 PHPCS
 
 `
-vendor/bin/phpcs src/ --standard=PSR1,PSR2
+vendor/bin/phpcs src/ --standard=phpcs.xml
 `
 
 ## Architecture
@@ -114,13 +114,16 @@ One to many relations with doctrine are by default bidirectional, that means tha
 From a model point of view relations are ArrayCollections objects from Doctrine, they are lazy loaded by default, they can be configured with the option fetch in the mapping definition https://www.doctrine-project.org/projects/doctrine-orm/en/2.6/reference/annotations-reference.html#onetomany.
 
 ### Backend
-For an REST API we can use external bundles, FOSRestBundle and NelmioCorsBundle.
+For an REST API we can use an external bundle FOSRestBundle, but I decided not to use.
 
 #### Routes
 The route for detail of Event should be like `/place/{placeId}/event/{eventId}` but the requirements says that to show an event you have to pass an event id, not post id.
 
+#### CORS
+To allow reading from remote resource we enabled the CORS header with the use of NelmioCorsBundle.
+
 #### HATEOAS
-Used BazingaHateoasBundle with JMSSerializer with yml configuration to serialize api response data.
+Used BazingaHateoasBundle with JMSSerializer with yml configuration to serialize api response data. The models configuration can be found in src/CodeChallenge/Infrastructure/Resources/config/serializer/*.yml
 
 #### Swagger
-Api endpoints, accepted content types, parameters and return responses documentation done with swagger in yml.
+Api endpoints, accepted content types, parameters and return responses documentation done with swagger in yml. It can be found in src/CodeChallenge/Infrastructure/Resources/doc/swagger_api.yaml

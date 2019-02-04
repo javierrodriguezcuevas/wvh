@@ -4,6 +4,7 @@
     "require": {
         "php": "^7.1",
         "ext-json": "*",
+        "nelmio/cors-bundle": "^1.5",
         "ramsey/uuid-doctrine": "^1.5",
         "symfony/flex": "^1.1",
         "symfony/framework-bundle": "^4.2",
