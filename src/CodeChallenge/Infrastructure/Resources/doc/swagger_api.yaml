@@ -1,0 +1,197 @@
+swagger: "2.0"
+info:
+  description: "Api doc for code challenge"
+  version: "1.0.0"
+  title: "Swagger Code Challenge"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/api/v1"
+tags:
+  - name: "place"
+    description: "Everything about your Places"
+  - name: "event"
+    description: "Access to Places Events"
+schemes:
+  - "http"
+paths:
+  /places:
+    post:
+      tags:
+        - "place"
+      summary: "Adds a new place"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "The place data."
+          required: true
+          schema:
+            $ref: "#/definitions/Place"
+      responses:
+        201:
+          description: "Resource created"
+          schema:
+            $ref: "#/definitions/Place"
+        400:
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiProblemException"
+  /events:
+    get:
+      tags:
+        - "event"
+      summary: "Lists events inside a radius by latitude and longitude"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "query"
+          name: "latitude"
+          type: "string"
+          description: "The place latitude."
+          required: true
+        - in: "query"
+          name: "longitude"
+          type: "string"
+          description: "The place longitude."
+          required: true
+        - in: "query"
+          name: "radius"
+          type: "string"
+          description: "The place max radius to search."
+          required: true
+      responses:
+        200:
+          description: "List with event resources"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Event"
+        400:
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiProblemException"
+    post:
+      tags:
+        - "event"
+      summary: "Adds a new event"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "The event data."
+          required: true
+          schema:
+            $ref: "#/definitions/Event"
+      responses:
+        201:
+          description: "Resource created"
+          schema:
+            $ref: "#/definitions/Event"
+        400:
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiProblemException"
+  /events/{eventId}:
+    get:
+      tags:
+        - "event"
+      summary: "Gets detail of event"
+      description: ""
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "path"
+          name: "eventId"
+          type: "string"
+          description: "The event id."
+          required: true
+      responses:
+        200:
+          description: "Event detail resource"
+          schema:
+            $ref: "#/definitions/EventDetail"
+        400:
+          description: "Bad request"
+          schema:
+            $ref: "#/definitions/ApiProblemException"
+definitions:
+  Place:
+    type: "object"
+    required:
+      - "latitude"
+      - "longitude"
+    properties:
+      latitude:
+        type: "string"
+        example: "14.001254"
+      longitude:
+        type: "string"
+        example: "-95.001453"
+      name:
+        type: "string"
+        example: "My Place Name"
+
+  Event:
+    type: "object"
+    required:
+      - "id"
+    properties:
+      id:
+        type: "string"
+        example: "000000-0000-0000-0000-000000000000"
+      name:
+        type: "string"
+        example: "My Event Name"
+
+  EventDetail:
+    type: "object"
+    required:
+      - "id"
+    properties:
+      id:
+        type: "string"
+        example: "000000-0000-0000-0000-000000000000"
+      name:
+        type: "string"
+        example: "My Event Name"
+      posts:
+        type: "array"
+        items:
+          $ref: "#/definitions/Post"
+
+  Post:
+    type: "object"
+    required:
+      - "id"
+    properties:
+      text:
+        type: "string"
+        example: "My Post Text"
+
+  ApiProblemException:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+        example: 400
+      type:
+        type: "string"
+        example: "invalid_body_format"
+      title:
+        type: "string"
+        example: "Invalid data sent"

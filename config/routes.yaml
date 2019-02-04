@@ -1,0 +1,29 @@
+homepage:
+    path: /
+    controller: CodeChallenge\Infrastructure\Ui\Api\HomepageController::index
+    methods: [GET]
+
+place_create:
+    path: /api/v1/places
+    controller: CodeChallenge\Infrastructure\Ui\Api\PlaceController::create
+    methods: [POST]
+
+event_create_from_places:
+    path: /api/v1/places/{placeId}/events
+    controller: CodeChallenge\Infrastructure\Ui\Api\EventController::createFromPlaces
+    methods: [POST]
+
+event_list:
+    path: /api/v1/events
+    controller: CodeChallenge\Infrastructure\Ui\Api\EventController::list
+    methods: [GET]
+
+event_create_own_endpoint:
+    path: /api/v1/events
+    controller: CodeChallenge\Infrastructure\Ui\Api\EventController::create
+    methods: [POST]
+
+event_detail:
+    path: /api/v1/events/{eventId}
+    controller: CodeChallenge\Infrastructure\Ui\Api\EventController::detail
+    methods: [GET]

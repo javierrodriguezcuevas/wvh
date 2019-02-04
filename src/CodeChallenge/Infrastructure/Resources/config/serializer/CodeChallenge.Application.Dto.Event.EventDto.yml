@@ -1,0 +1,13 @@
+CodeChallenge\Application\Dto\Event\EventDto:
+  properties:
+    id:
+      exclude: false
+    name:
+      exclude: true
+  relations:
+    -
+      rel: self
+      href:
+        route: event_detail
+        parameters:
+          eventId: expr(object.id)

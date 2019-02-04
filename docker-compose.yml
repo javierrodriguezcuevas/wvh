@@ -1,0 +1,41 @@
+version: "3.2"
+
+services:
+    php:
+        container_name: code-challenge-php
+        build: docker/php
+        environment:
+            - DATABASE_HOST=code-challenge-mysql # mysql container name
+            - DATABASE_NAME=code-challenge
+            - DATABASE_PASSWORD=code-challenge
+            - DATABASE_PORT=3306
+            - DATABASE_USER=code-challenge
+        links:
+            - mysql
+        ports:
+            - "8000:8000"
+        command: ["php", "-S", "0.0.0.0:8000", "-t", "/var/www/html/public"]
+        volumes:
+            # windows virtual box configuraion
+            - /code-challenge:/var/www/html/
+            # linux configuragion
+            #    - .:/var/www/html/
+            
+    mysql:
+        container_name: code-challenge-mysql
+        build: docker/mysql
+        # windows fix
+        command: mysqld --innodb-flush-method=littlesync --innodb-use-native-aio=OFF --log_bin=ON
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: code-challenge
+            MYSQL_USER: code-challenge
+            MYSQL_PASSWORD: code-challenge
+        ports:
+            - "3306:3306"
+        volumes:
+            # windows virtual box configuraion
+            - /code-challenge/docker/mysql/data:/var/lib/mysql
+            - /code-challenge/docker/mysql/innodb-fix.cnf:/etc/mysql/conf.d/innodb-fix.cnf
+            # linux configuragion
+#            - ./docker/mysql/data:/var/lib/mysql

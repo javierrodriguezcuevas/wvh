@@ -1,0 +1,4 @@
+CodeChallenge\Application\Dto\Post\PostDto:
+  properties:
+    text:
+      expose: true

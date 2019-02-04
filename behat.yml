@@ -1,0 +1,22 @@
+default:
+    suites:
+        default:
+            contexts:
+                - CodeChallenge\Tests\Behat\ApiFeatureContext
+                - CodeChallenge\Tests\Behat\PlaceFeatureContext
+                - CodeChallenge\Tests\Behat\EventFeatureContext
+                - CodeChallenge\Tests\Behat\PostFeatureContext
+            paths:
+                features: '%paths.base%/features/api/'
+    extensions:
+        FriendsOfBehat\SymfonyExtension: ~
+            
+        Behat\MinkExtension:
+            default_session: 'selenium2'
+            sessions:
+                symfony:
+                    symfony: ~
+                selenium2:
+                    selenium2:
+                        browser: chrome
+            base_url: http://0.0.0.0:8000
